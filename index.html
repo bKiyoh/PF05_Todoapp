@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-js-modal@1.3.34/dist/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka+One">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+  </head>
+  <body>
+    <main>
+      <div class="container">
+ 
+        <div id="app">
+          <div class="text-center">
+            <h1 class="topfont">{{ topDay }}</h1>
+            <p class="fw-bold">Todo app</p>
+            <p class="fw-bold">▽ {{ realDay }}▽</p>
+          </div>
+
+          <div class="card shadow-lg p-3">
+            <div class="">
+              <form class="add-form" v-on:submit.prevent="doAdd">
+                <!-- コメント入力フォーム -->
+                <div class="d-flex mb-3">
+                  <input type="text" class="form-control" ref="comment" placeholder="New Todo">
+                  <!-- 追加ボタンのモック -->
+                <button type="submit" class="btn btn-sm btn-light ms-2">Add</button>
+                </div>             
+              </form>
+            </div>
+
+            <div class="d-flex ps-2">
+              <label v-for="label in options" >
+                <input type="radio"
+                v-model="current"
+                v-bind:value="label.value">{{ label.label }}
+              </label>
+              （{{ computedTodos.length }} 件を表示）
+            </div>
+
+            <table>
+              <tbody>   
+                <tr v-for="item in computedTodos" v-bind:key="item.id" v-bind:class="{done:item.state}">
+                  <!-- ここに <tr> で ToDo の要素を1行づつ繰り返し表示 -->  
+                  <td class="text-end">
+                    <!-- ★STEP10 状態変更ボタン -->
+                      <button v-on:click="doChangeState(item)">
+                        {{ labels[item.state] }}
+                      </button>   
+                  </td>
+                  <td class="text-start">{{ item.comment }}</td>
+                  <!-- ToDo の要素を1行づつ繰り返し表示 -->  
+                  <td class="text-end pe-2">{{ item.addDay }}</td>
+                  <td >
+                    <button v-on:click="doRemove(item)" class="btn btn-outline-dark btn-sm">Del</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>     
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
